@@ -1,4 +1,23 @@
-let clientes = []
+let clientes = [{
+    idCliente: 100,
+    nomeCliente: 'MArcelo',
+    sobreNomeCliente: 'de Carli Rocha',
+    agenciaCliente: '1014-0',
+    contaCliente: 10000,
+    senhaCliente: 12345,
+    saldoInicialCliente: 12000,
+    rendaMensalCliente: 2540
+},
+{
+    idCliente: 101,
+    nomeCliente: 'Edilson',
+    sobreNomeCliente: 'Santos',
+    agenciaCliente: '1014-0',
+    contaCliente: 10001,
+    senhaCliente: 54321,
+    saldoInicialCliente: 600,
+    rendaMensalCliente: 4000
+}]
 
 function idCliente() {
     return clientes.length + 100
@@ -56,11 +75,24 @@ function excluirCliente(numConta, senhaCli) {
 
 function depositar(numConta, senhaCl, valorDep) {
 
-    if (numConta === clientes.idContaCliente && senhaCl === clientes.senhaCliente) {
-        saldoAtualizado = clientes.saldoInicialCliente + valorDep
+    let existeCliente = false;
+    let indexCliente
 
-        return clientes.saldoInicialCliente = saldoAtualizado
-    } else {
-        return 'Falha no depósito.'
+    for (let i = 0; i < clientes.length; i++) {        
+        if (numConta === clientes[i].contaCliente && senhaCl === clientes[i].senhaCliente) {
+            indexCliente = i
+            existeCliente = true
+        } 
+        if (existeCliente == true) {
+            saldoAtualizado = clientes[i].saldoInicialCliente + valorDep
+
+            clientes[i].saldoInicialCliente = saldoAtualizado
+        }else{
+            return 'Deposito inválido.'
+        }
     }
 }
+
+// depositar(10000, 12345, 12000)
+// console.log(clientes)
+
