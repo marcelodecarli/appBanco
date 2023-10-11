@@ -73,19 +73,15 @@ function excluirCliente(numConta, senhaCli) {
 
 function depositar(numConta, senhaCl, valorDep) {
 
-    let existeCliente = false;
-    let indexCliente
-
     for (let i = 0; i < clientes.length; i++) {
         if (numConta === clientes[i].contaCliente && senhaCl === clientes[i].senhaCliente) {
-            indexCliente = i
             saldoAtualizado = clientes[i].saldoInicialCliente + valorDep
             clientes[i].saldoInicialCliente = saldoAtualizado
 
             console.log(`Valor depositado: R$${valorDep}. Valor do saldo atualizado R$${clientes[i].saldoInicialCliente}.`)
 
         } else {
-            return 'Deposito inválido.'
+            console.log('Deposito inválido.')
         }
     }
 }
@@ -93,7 +89,6 @@ function depositar(numConta, senhaCl, valorDep) {
 // depositar(10000, 12345, 12000)
 // console.log(clientes)
 
-/*4. Uma função para sacar do dinheiro contido na conta. A função irá receber o numero da conta, a senha e valor de saque. Se valor do saque informado for maior que o saldo disponível, o sistema deverá apresentar a mensagem de "saldo insuficiente" além de apresentar saldo atual; Se o valor do saque for menor que o saldo disponível, realizar a operação de subtração dos valores e retornar a mensagem de confirmação da operação.*/
 
 function sacar(numConta, senhaCl, valorSacado) {
 
@@ -120,14 +115,13 @@ function sacar(numConta, senhaCl, valorSacado) {
 }
 // console.log(sacar(10000, 12345, 6000))
 
-//5. Uma função que permita a emissão do extrato da conta. A função recebe o numero da conta e a senha como parâmetros. Deverá apresentar na tela, de forma organizada, os dados de: nome do cliente, numero agência, numero conta e saldo atual do cliente que está acessando a conta.
 
 function extrato(numContaExtrato, senhaClienteExtrato) {
 
     for (let i = 0; i < clientes.length; i++) {
 
         if (numContaExtrato === clientes[i].contaCliente && senhaClienteExtrato === clientes[i].senhaCliente) {
-        
+
             console.log(`                    
             -------------------------- EXTRATO --------------------------
 
@@ -139,7 +133,7 @@ function extrato(numContaExtrato, senhaClienteExtrato) {
             ---------------------------- FIM ----------------------------
             `)
             break;
-        }else{
+        } else {
             console.log('Cliente não encontrado.')
         }
     }
@@ -154,10 +148,8 @@ function emprestar(numContaEmprestimo, valorEmprestimo, qtdParcelas) {
 
     for (let i = 0; i < clientes.length; i++) {
 
-
-
         if (numContaEmprestimo === clientes[i].contaCliente && qtdParcelas <= 24) {
-            
+
             parcelaMaxima = (clientes[i].rendaMensalCliente * 0.20)
             valorEmprestimoComJuros = valorEmprestimo + (valorEmprestimo * 0.05)
             valorParcela = valorEmprestimoComJuros / qtdParcelas
@@ -242,12 +234,16 @@ function menu() {
 
         case 3:
 
+            console.clear()
+
             let numContaExtrato = rl.questionInt('Digite a sua conta: ')
             let senhaClienteExtrato = rl.questionInt('Digite a sua senha: ')
 
             return extrato(numContaExtrato, senhaClienteExtrato)
 
         case 4:
+            console.clear()
+
             let numContaEmprestimo = rl.questionInt('Digite a sua conta: ')
             let valorEmprestimo = rl.questionInt('Informe o valor do emprestimo: ')
             let qtdParcelas = rl.questionInt('Informe em quantas parcelas deseja fazer (Máximo 24x): ')
