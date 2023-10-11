@@ -21,10 +21,11 @@ let clientes = [{
     rendaMensalCliente: 4000
 }]
 
-function idCliente() { return clientes.length + 100 }
+function idCliente() { return clientes.length + 100 } // Função que incrementa automaticamente o ID do cliente
 
-function idContaCliente() { return clientes.length + 10000 }
+function idContaCliente() { return clientes.length + 10000 } // Função que incrementa automaticamente o número da conta
 
+// Função para realizar cadastro do cliente
 function cadastrar(nome, sobreNome, senha, saldoInicial, rendaMensal) {
     let cadastro = {
         idCliente: idCliente(),
@@ -45,7 +46,7 @@ function cadastrar(nome, sobreNome, senha, saldoInicial, rendaMensal) {
 //  console.log(clientes)
 
 
-
+//Função para realizar a exclusão do cliente
 function excluirCliente(numConta, senhaCli) {
 
     let existeCliente = false;
@@ -71,6 +72,7 @@ function excluirCliente(numConta, senhaCli) {
 // excluirCliente(10000,12345)
 // console.log(clientes)
 
+//Função para realização de depósito
 function depositar(numConta, senhaCl, valorDep) {
 
     for (let i = 0; i < clientes.length; i++) {
@@ -89,7 +91,7 @@ function depositar(numConta, senhaCl, valorDep) {
 // depositar(10000, 12345, 12000)
 // console.log(clientes)
 
-
+//Função para realizar o saque
 function sacar(numConta, senhaCl, valorSacado) {
 
     let existeCliente = false;
@@ -115,7 +117,7 @@ function sacar(numConta, senhaCl, valorSacado) {
 }
 // console.log(sacar(10000, 12345, 6000))
 
-
+//Função que realiza o extrato do cliente
 function extrato(numContaExtrato, senhaClienteExtrato) {
 
     for (let i = 0; i < clientes.length; i++) {
@@ -142,7 +144,7 @@ function extrato(numContaExtrato, senhaClienteExtrato) {
 // console.log(extrato(10000, 12345))
 
 
-
+//Função para pedir empréstimo
 function emprestar(numContaEmprestimo, valorEmprestimo, qtdParcelas) {
 
 
@@ -178,6 +180,7 @@ function letreiro() {
     console.log('****** * * * Bem vindo ao banco * * * *******')
 }
 
+//Função que exibe as opções para o cliente
 function menu() {
 
     letreiro()
@@ -197,7 +200,7 @@ function menu() {
     }
 
     switch (opcao) {
-        case 300:
+        case 300: //Função cadastrar será somente para usuários internos, não aparecerá na tela de opções do cliente
 
             console.clear()
             let nome = rl.question('Primeiro nome do cliente: ')
@@ -209,7 +212,7 @@ function menu() {
             break;
 
         case 400:
-            console.clear()
+            console.clear() //Função excluir será somente para usuários internos, não aparecerá na tela de opções do cliente
 
             let numConta = rl.questionInt('Digite a sua conta: ')
             let senhaCli = rl.questionInt('Digite a sua senha: ')
@@ -217,12 +220,12 @@ function menu() {
 
         case 1:
 
-            console.clear()
+            console.clear() 
 
             let numContaDep = rl.questionInt('Digite a sua conta: ')
             let senhaCl = rl.questionInt('Digite a sua senha: ')
             let valorDep = rl.questionFloat('Valor a ser depositado: ')
-            return depositar(numContaDep, senhaCl, valorDep)
+            return depositar(numContaDep, senhaCl, valorDep) //Chamada da função depositar
 
         case 2:
             console.clear()
@@ -230,7 +233,7 @@ function menu() {
             let numContaSaque = rl.questionInt('Digite a sua conta: ')
             let senhaClSaque = rl.questionFloat('Digite a sua senha: ')
             let valorSacado = rl.questionFloat('Informe o valor do saque: ')
-            return sacar(numContaSaque, senhaClSaque, valorSacado)
+            return sacar(numContaSaque, senhaClSaque, valorSacado) //Chamada da função sacar
 
         case 3:
 
@@ -239,7 +242,7 @@ function menu() {
             let numContaExtrato = rl.questionInt('Digite a sua conta: ')
             let senhaClienteExtrato = rl.questionInt('Digite a sua senha: ')
 
-            return extrato(numContaExtrato, senhaClienteExtrato)
+            return extrato(numContaExtrato, senhaClienteExtrato) //Chamada da função extrato
 
         case 4:
             console.clear()
@@ -247,7 +250,7 @@ function menu() {
             let numContaEmprestimo = rl.questionInt('Digite a sua conta: ')
             let valorEmprestimo = rl.questionInt('Informe o valor do emprestimo: ')
             let qtdParcelas = rl.questionInt('Informe em quantas parcelas deseja fazer (Máximo 24x): ')
-            return emprestar(numContaEmprestimo, valorEmprestimo, qtdParcelas)
+            return emprestar(numContaEmprestimo, valorEmprestimo, qtdParcelas) //Chamada da função emprestar
 
         case 900:
             return encerrar()
