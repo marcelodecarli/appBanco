@@ -129,7 +129,7 @@ function extrato(numContaExtrato, senhaClienteExtrato) {
 
                     Nome do cliente: ${clientes[i].nomeCliente} ${clientes[i].sobreNomeCliente}.
                     Agência: ${clientes[i].agenciaCliente}
-                    Número da conta: ${clientes[i].agenciaCliente}
+                    Número da conta: ${clientes[i].contaCliente}
                     Saldo Atual: R$${clientes[i].saldoInicialCliente.toFixed(2)}
                     
             ---------------------------- FIM ----------------------------
