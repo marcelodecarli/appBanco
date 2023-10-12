@@ -75,18 +75,28 @@ function excluirCliente(numConta, senhaCli) {
 //Função para realização de depósito
 function depositar(numConta, senhaCl, valorDep) {
 
-    for (let i = 0; i < clientes.length; i++) {
-        if (numConta === clientes[i].contaCliente && senhaCl === clientes[i].senhaCliente) {
+
+    for (let i = 0; i <= clientes.length; i++) {
+
+        existeCliente = false
+
+        if (numConta == clientes[i].contaCliente && senhaCl == clientes[i].senhaCliente) {
+            existeCliente = true
+        } else if (numConta != clientes[i].contaCliente && senhaCl == clientes[i].senhaCliente) {
+            return 'Cliente inválido.'
+        } else if (numConta == clientes[i].contaCliente && senhaCl != clientes[i].senhaCliente) {
+            return 'Senha inválido.'
+        }
+
+        if (existeCliente == true) {
             saldoAtualizado = clientes[i].saldoInicialCliente + valorDep
             clientes[i].saldoInicialCliente = saldoAtualizado
 
-            console.log(`Valor depositado: R$${valorDep}. Valor do saldo atualizado R$${clientes[i].saldoInicialCliente}.`)
-
-        } else {
-            console.log('Deposito inválido.')
+            return (`Valor depositado: R$${valorDep}. Valor do saldo atualizado R$${clientes[i].saldoInicialCliente}.`)
         }
     }
 }
+
 
 // depositar(10000, 12345, 12000)
 // console.log(clientes)
@@ -94,23 +104,25 @@ function depositar(numConta, senhaCl, valorDep) {
 //Função para realizar o saque
 function sacar(numConta, senhaCl, valorSacado) {
 
-    let existeCliente = false;
-    let indexCliente
+    for (let i = 0; i <= clientes.length; i++) {
 
-    for (let i = 0; i < clientes.length; i++) {
-        if (numConta === clientes[i].contaCliente && senhaCl === clientes[i].senhaCliente) {
-            indexCliente = i
+        existeCliente = false
+
+        if (numConta == clientes[i].contaCliente && senhaCl == clientes[i].senhaCliente) {
             existeCliente = true
-        } else {
-            return 'Cliente não encontrado.'
+        } else if (numConta != clientes[i].contaCliente && senhaCl == clientes[i].senhaCliente) {
+            return 'Cliente inválido.'
+        } else if (numConta == clientes[i].contaCliente && senhaCl != clientes[i].senhaCliente) {
+            return 'Senha inválido.'
         }
-        if (existeCliente == true && valorSacado <= clientes[i].saldoInicialCliente) {
+
+        if (valorSacado <= clientes[i].saldoInicialCliente && existeCliente == true) {
 
             saldoAtualizado = clientes[i].saldoInicialCliente - valorSacado
             clientes[i].saldoInicialCliente = saldoAtualizado
-            console.log(`Valor sacado: R$${valorSacado}. Saldo atualizado R$${saldoAtualizado}.`)
+            return `Valor sacado: R$${valorSacado}. Saldo atualizado R$${saldoAtualizado}.`
 
-        } else {
+        } else if (valorSacado > clientes[i].saldoInicialCliente) {
             return `Saldo insuficiente. Saldo disponível é de R$${clientes[i].saldoInicialCliente}`
         }
     }
@@ -162,8 +174,8 @@ function emprestar(numContaEmprestimo, valorEmprestimo, qtdParcelas) {
 
                     ******************* APROVADO *******************
 
-                    Valor emprestado com juros: R$${valorEmprestimoComJuros}
-                    Parcela mensal: R$${valorParcela}
+                    Valor emprestado com juros: R$${valorEmprestimoComJuros.toFixed(2)}
+                    Parcela mensal: R$${valorParcela.toFixed(2)}
                     Quantidade de parcelas: ${qtdParcelas} parcelas.
                     `)
             } else {
@@ -183,6 +195,7 @@ function letreiro() {
 //Função que exibe as opções para o cliente
 function menu() {
 
+    console.clear()
     letreiro()
 
     console.log('*** MENU DE ACESSO ***')
@@ -220,21 +233,21 @@ function menu() {
 
         case 1:
 
-            console.clear() 
+            console.clear()
 
             let numContaDep = rl.questionInt('Digite a sua conta: ')
             let senhaCl = rl.questionInt('Digite a sua senha: ')
             let valorDep = rl.questionFloat('Valor a ser depositado: ')
-            return depositar(numContaDep, senhaCl, valorDep) //Chamada da função depositar
-
+            console.log(depositar(numContaDep, senhaCl, valorDep)) //Chamada da função depositar
+            break;
         case 2:
             console.clear()
 
             let numContaSaque = rl.questionInt('Digite a sua conta: ')
-            let senhaClSaque = rl.questionFloat('Digite a sua senha: ')
+            let senhaClSaque = rl.questionInt('Digite a sua senha: ')
             let valorSacado = rl.questionFloat('Informe o valor do saque: ')
-            return sacar(numContaSaque, senhaClSaque, valorSacado) //Chamada da função sacar
-
+            console.log(sacar(numContaSaque, senhaClSaque, valorSacado)) //Chamada da função sacar
+            break;
         case 3:
 
             console.clear()
